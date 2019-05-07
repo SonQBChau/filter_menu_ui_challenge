@@ -29,9 +29,49 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           buildClippedHero(),
           buildHeader(),
+          buildProfileRow(),
         ],
       ),
     );
+  }
+
+  Container buildProfileRow() {
+    return Container(
+          padding: new EdgeInsets.only(left: 16.0, top: 256 / 2.5),
+          child: Row(
+            children: <Widget>[
+              CircleAvatar(
+                minRadius: 28.0,
+                maxRadius: 28.0,
+                backgroundImage: AssetImage('images/avatar.jpg'),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    'Ryan Barnes',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 26.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  Text(
+                    'Product Designer',
+                    style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
   }
 
   Container buildHeader() {
