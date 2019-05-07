@@ -1,10 +1,9 @@
 
 import 'package:filter_menu_ui_challenge/task.dart';
-import 'package:filter_menu_ui_challenge/task_row.dart';
 import 'package:flutter/material.dart';
 
-class TaskList{
-  final List<Task> tasks = [
+
+List<Task> tasks = [
     new Task(
         name: "Catch up with Brian",
         category: "Mobile Project",
@@ -16,7 +15,7 @@ class TaskList{
         category: "Web App",
         time: "3pm",
         color: Colors.cyan,
-        completed: true),
+        completed: false),
     new Task(
         name: "Design explorations",
         category: "Company Website",
@@ -40,20 +39,13 @@ class TaskList{
         category: "Learning",
         time: "10pm",
         color: Colors.yellow,
-        completed: true),
+        completed: false),
     new Task(
         name: "Watching TV",
         category: "Entertainment",
         time: "12pm",
         color: Colors.grey,
-        completed: true),
+        completed: false),
   ];
 
-  Widget buildTasksList() {
-    return new Expanded(
-      child: new ListView(
-        children: tasks.map((task) => new TaskRow(task: task)).toList(),
-      ),
-    );
-  }
-}
+

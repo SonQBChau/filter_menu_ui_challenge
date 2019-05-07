@@ -1,3 +1,5 @@
+import 'package:filter_menu_ui_challenge/list_model.dart';
+import 'package:filter_menu_ui_challenge/task_row.dart';
 import 'package:flutter/material.dart';
 import 'package:filter_menu_ui_challenge/task_list.dart';
 
@@ -23,6 +25,57 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<AnimatedListState> _listKey = new GlobalKey<AnimatedListState>();
+  ListModel listModel;
+  bool showOnlyCompleted = false;
+  final double _imageHeight = 256;
+
+  @override
+  void initState() {
+    super.initState();
+    listModel = new ListModel(_listKey, tasks);
+  }
+
+  Widget _buildTasksList() {
+    return new Expanded(
+      child: new AnimatedList(
+        initialItemCount: tasks.length,
+        key: _listKey,
+        itemBuilder: (context, index, animation) {
+          return new TaskRow(
+            task: listModel[index],
+            animation: animation,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildFab() {
+    return new Positioned(
+      top: _imageHeight - 36.0,
+      right: 16.0,
+      child: new FloatingActionButton(
+        onPressed: _changeFilterState,
+        backgroundColor: Colors.pink,
+        child: new Icon(Icons.filter_list),
+      ),
+    );
+  }
+  void _changeFilterState() {
+    showOnlyCompleted = !showOnlyCompleted;
+    tasks.where((task) => !task.completed).forEach((task) {
+      if (showOnlyCompleted) {
+        listModel.removeAt(listModel.indexOf(task));
+      } else {
+        listModel.insert(tasks.indexOf(task), task);
+      }
+    });
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           buildHeader(),
           buildProfileRow(),
           buildMainBody(),
+          _buildFab(),
 
         ],
       ),
@@ -40,7 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Container buildMainBody() {
-    final tasks = TaskList();
     return Container(
           padding: EdgeInsets.only(top: 256),
           child: Column(
@@ -62,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              tasks.buildTasksList(),
+              _buildTasksList(),
             ],
           ),
         );
