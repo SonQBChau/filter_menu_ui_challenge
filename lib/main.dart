@@ -30,48 +30,76 @@ class _MyHomePageState extends State<MyHomePage> {
           buildClippedHero(),
           buildHeader(),
           buildProfileRow(),
+          buildMainBody(),
+          _buildTimeline(),
         ],
       ),
     );
   }
 
-  Container buildProfileRow() {
+  Container buildMainBody() {
     return Container(
-          padding: new EdgeInsets.only(left: 16.0, top: 256 / 2.5),
-          child: Row(
+          padding: EdgeInsets.only(top: 256),
+          child: Column(
             children: <Widget>[
-              CircleAvatar(
-                minRadius: 28.0,
-                maxRadius: 28.0,
-                backgroundImage: AssetImage('images/avatar.jpg'),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    'Ryan Barnes',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                  Text(
-                    'Product Designer',
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400,
+              Container(
+                padding: EdgeInsets.only(left: 60),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'My Task',
+                      style: TextStyle(fontSize: 34),
                     ),
-                  ),
-                ],
+                    Text(
+                      'FEBRUARY 8, 2019',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         );
+  }
+
+  Container buildProfileRow() {
+    return Container(
+      padding: new EdgeInsets.only(left: 16.0, top: 256 / 2.5),
+      child: Row(
+        children: <Widget>[
+          CircleAvatar(
+            minRadius: 28.0,
+            maxRadius: 28.0,
+            backgroundImage: AssetImage('images/avatar.jpg'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'Ryan Barnes',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26.0,
+                    fontWeight: FontWeight.w400),
+              ),
+              Text(
+                'Product Designer',
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Container buildHeader() {
@@ -119,6 +147,18 @@ class _MyHomePageState extends State<MyHomePage> {
           color: Color.fromARGB(120, 20, 10, 40),
         ));
   }
+}
+
+Widget _buildTimeline() {
+  return Positioned(
+    top: 0.0,
+    bottom: 0.0,
+    left: 32.0,
+    child: new Container(
+      width: 1.0,
+      color: Colors.grey[300],
+    ),
+  );
 }
 
 class DiagonalClipper extends CustomClipper<Path> {
