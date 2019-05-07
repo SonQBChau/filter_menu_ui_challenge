@@ -31,9 +31,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          ClipPath(
+            clipper: DiagonalClipper(),
+            child: Image.asset(
+                'images/birds.jpg',
+                fit: BoxFit.cover,
+              colorBlendMode: BlendMode.srcOver,
+              color: Color.fromARGB(120, 20, 10, 40),
+            )
+          ),
 
         ],
       ),
     );
   }
+}
+
+
+class DiagonalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = new Path();
+    path.lineTo(0.0, size.height - 60.0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0.0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
