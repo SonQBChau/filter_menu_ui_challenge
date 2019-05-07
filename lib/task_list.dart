@@ -1,5 +1,6 @@
 
 import 'package:filter_menu_ui_challenge/task.dart';
+import 'package:filter_menu_ui_challenge/task_row.dart';
 import 'package:flutter/material.dart';
 
 class TaskList{
@@ -34,5 +35,25 @@ class TaskList{
         time: "10am",
         color: Colors.cyan,
         completed: true),
+    new Task(
+        name: "Learn GRE",
+        category: "Learning",
+        time: "10pm",
+        color: Colors.yellow,
+        completed: true),
+    new Task(
+        name: "Watching TV",
+        category: "Entertainment",
+        time: "12pm",
+        color: Colors.grey,
+        completed: true),
   ];
+
+  Widget buildTasksList() {
+    return new Expanded(
+      child: new ListView(
+        children: tasks.map((task) => new TaskRow(task: task)).toList(),
+      ),
+    );
+  }
 }

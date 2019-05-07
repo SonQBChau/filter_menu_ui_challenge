@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:filter_menu_ui_challenge/task_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,20 +28,23 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
+          _buildTimeline(),
           buildClippedHero(),
           buildHeader(),
           buildProfileRow(),
           buildMainBody(),
-          _buildTimeline(),
+
         ],
       ),
     );
   }
 
   Container buildMainBody() {
+    final tasks = TaskList();
     return Container(
           padding: EdgeInsets.only(top: 256),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
                 padding: EdgeInsets.only(left: 60),
@@ -58,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
+              tasks.buildTasksList(),
             ],
           ),
         );
