@@ -1,3 +1,4 @@
+import 'package:filter_menu_ui_challenge/animated_fab.dart';
 import 'package:filter_menu_ui_challenge/list_model.dart';
 import 'package:filter_menu_ui_challenge/task_row.dart';
 import 'package:flutter/material.dart';
@@ -52,13 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildFab() {
-    return new Positioned(
+    return  Positioned(
       top: _imageHeight - 36.0,
       right: 16.0,
-      child: new FloatingActionButton(
-        onPressed: _changeFilterState,
-        backgroundColor: Colors.pink,
-        child: new Icon(Icons.filter_list),
+      child:  AnimatedFab(
+        onClick: _changeFilterState,
+//        child: new Icon(Icons.filter_list),
       ),
     );
   }
