@@ -1,8 +1,15 @@
 import 'package:filter_menu_ui_challenge/animated_fab.dart';
+import 'package:filter_menu_ui_challenge/circle_wheel_scroll_view.dart';
 import 'package:filter_menu_ui_challenge/list_model.dart';
+import 'package:filter_menu_ui_challenge/numbers_list.dart';
+import 'package:filter_menu_ui_challenge/radial_list.dart';
 import 'package:filter_menu_ui_challenge/task_row.dart';
 import 'package:flutter/material.dart';
 import 'package:filter_menu_ui_challenge/task_list.dart';
+
+/*
+https://github.com/MarcinusX/flutter_ui_challenge_filter_menu
+*/
 
 void main() => runApp(MyApp());
 
@@ -21,12 +28,19 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+//  RadialListViewModel radialList;
+
+//  MyHomePage({
+//    @required this.radialList
+//  });
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<AnimatedListState> _listKey = new GlobalKey<AnimatedListState>();
+  final GlobalKey<AnimatedListState> _listKey =
+      new GlobalKey<AnimatedListState>();
   ListModel listModel;
   bool showOnlyCompleted = false;
   final double _imageHeight = 256;
@@ -52,15 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-
   Widget _buildFab() {
     return new Positioned(
-        top: _imageHeight - 100.0,
-        right: -40.0,
-        child:new AnimatedFab(
+        top: MediaQuery.of(context).size.height * 0.8,
+        right: MediaQuery.of(context).size.width * 0.25,
+        child: new AnimatedFab(
           onClick: _changeFilterState,
-        )
-    );
+        ));
   }
 
   void _changeFilterState() {
@@ -74,52 +86,96 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Widget _buildItem(int i) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(40),
+        child: Container(
+          width: 40,
+          color: Colors.blue[100 * ((i % 8) + 1)],
+          child: Center(
+            child:
+            Text(i.toString(),),
+          ),
+        ),
+      ),
+    );
+  }
 
+
+  Widget _buildItemIcon(Color color, IconData ico) {
+    return Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(40),
+        child: Container(
+          width: 40,
+          color: color,
+          child: Center(
+            child:
+            Icon(ico, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          _buildTimeline(),
-          buildClippedHero(),
-          buildHeader(),
-          buildProfileRow(),
-          buildMainBody(),
-          _buildFab(),
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        body: Stack(
+          children: <Widget>[
+            _buildTimeline(),
+            buildClippedHero(),
+            buildHeader(),
+            buildProfileRow(),
+            buildMainBody(),
+//          _buildFab(),
 
-        ],
+            buildCircleMenu(),
+
+
+
+
+          ],
+        ),
+
+
+//        bottomNavigationBar: AnimatedFab(
+//          onClick: _changeFilterState,
+//        ),
       ),
     );
   }
 
   Container buildMainBody() {
     return Container(
-          padding: EdgeInsets.only(top: 256),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 60),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'My Task',
-                      style: TextStyle(fontSize: 34),
-                    ),
-                    Text(
-                      'FEBRUARY 8, 2019',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
+      padding: EdgeInsets.only(top: 256),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 60),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'My Task',
+                  style: TextStyle(fontSize: 34),
                 ),
-              ),
-              _buildTasksList(),
-            ],
+                Text(
+                  'FEBRUARY 8, 2019',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
           ),
-        );
+          _buildTasksList(),
+        ],
+      ),
+    );
   }
 
   Container buildProfileRow() {
@@ -205,6 +261,43 @@ class _MyHomePageState extends State<MyHomePage> {
           colorBlendMode: BlendMode.srcOver,
           color: Color.fromARGB(120, 20, 10, 40),
         ));
+  }
+
+  buildCircleMenu() {
+    return Positioned(
+      top: MediaQuery.of(context).size.height * 0.85,
+      right: MediaQuery.of(context).size.width * 0.15,
+      child: Center(
+        child: Container(
+          height: 100,
+          width: 260,
+          decoration: BoxDecoration(color:Colors.yellow),
+          child: CircleListScrollView(
+            physics: CircleFixedExtentScrollPhysics(),
+            axis: Axis.horizontal,
+            itemExtent: 40,
+//            children: List.generate(10, _buildItem),
+            children: buildListIcons(),
+            radius: MediaQuery.of(context).size.width * 0.25,
+          ),
+        ),
+      ),
+    );
+  }
+
+  List <Widget> buildListIcons() {
+    List<Widget> iconList = [];
+
+    iconList.add(_buildItemIcon(Colors.red, Icons.camera));
+    iconList.add(_buildItemIcon(Colors.red, Icons.category));
+    iconList.add(_buildItemIcon(Colors.red, Icons.more_horiz));
+    iconList.add(_buildItemIcon(Colors.red, Icons.menu));
+    iconList.add(_buildItemIcon(Colors.red, Icons.favorite));
+    iconList.add(_buildItemIcon(Colors.red, Icons.beenhere));
+    iconList.add(_buildItemIcon(Colors.red, Icons.notifications));
+    iconList.add(_buildItemIcon(Colors.red, Icons.group));
+
+    return iconList;
   }
 }
 

@@ -49,7 +49,8 @@ class _AnimatedFabState extends State<AnimatedFab>
               _buildOption(Icons.check_circle, 0.0),
               _buildOption(Icons.flash_on, -math.pi / 3),
               _buildOption(Icons.access_time, -2 * math.pi / 3),
-              _buildOption(Icons.error_outline, math.pi),
+              _buildOption(Icons.error_outline, math.pi / 3),
+              _buildOption(Icons.camera, 2 * math.pi / 3),
               _buildFabCore(),
             ],
           );
