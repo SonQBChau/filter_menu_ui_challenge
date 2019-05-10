@@ -18,9 +18,10 @@ class _AnimatedCircleState extends State<AnimatedCircle>
   Animation<Color> _colorAnimation;
 
   final double expandedSize = 180.0;
-//  final double expandedSize = 500.0;
-  final double hiddenSize = 20.0;
-
+  final double expandedWidthSize = 300.0;
+  final double expandedHeightSize = 150.0;
+//  final double hiddenSize = 20.0;
+  final double hiddenSize = 0.0;
 
   @override
   void initState() {
@@ -40,8 +41,9 @@ class _AnimatedCircleState extends State<AnimatedCircle>
   @override
   Widget build(BuildContext context) {
     return new SizedBox(
-      width: expandedSize,
-      height: expandedSize,
+//      width: expandedSize,
+      width: expandedWidthSize,
+      height: expandedHeightSize,
       child: new AnimatedBuilder(
         animation: _animationController,
         builder: (BuildContext context, Widget child) {
@@ -54,7 +56,11 @@ class _AnimatedCircleState extends State<AnimatedCircle>
 //              _buildOption(Icons.access_time, -2 * math.pi / 3),
 //              _buildOption(Icons.category, math.pi),
               _buildCircle(),
-              _buildFabCore(),
+              Positioned(
+                bottom:0,
+                child:_buildFabCore(),
+              ),
+//              _buildFabCore(),
 
 
 
@@ -157,10 +163,10 @@ class _AnimatedCircleState extends State<AnimatedCircle>
     iconList.add(_buildItemIcon(Colors.red, Icons.category));
     iconList.add(_buildItemIcon(Colors.red, Icons.more_horiz));
     iconList.add(_buildItemIcon(Colors.red, Icons.menu));
-    iconList.add(_buildItemIcon(Colors.red, Icons.favorite));
-    iconList.add(_buildItemIcon(Colors.red, Icons.beenhere));
-    iconList.add(_buildItemIcon(Colors.red, Icons.notifications));
-    iconList.add(_buildItemIcon(Colors.red, Icons.group));
+//    iconList.add(_buildItemIcon(Colors.red, Icons.favorite));
+//    iconList.add(_buildItemIcon(Colors.red, Icons.beenhere));
+//    iconList.add(_buildItemIcon(Colors.red, Icons.notifications));
+//    iconList.add(_buildItemIcon(Colors.red, Icons.group));
 
     return iconList;
   }
@@ -181,13 +187,16 @@ class _AnimatedCircleState extends State<AnimatedCircle>
   }
 
   _buildCircle() {
-    double size =
-        hiddenSize + (expandedSize - hiddenSize) * _animationController.value ;
+//    double size =
+//        hiddenSize + (expandedSize - hiddenSize) * _animationController.value ;
+    double widthSize = expandedWidthSize * _animationController.value;
+    double heightSize = expandedHeightSize * _animationController.value;
+
 
     return Center(
       child: Container(
-        height: size,
-        width: size,
+        height: heightSize,
+        width: widthSize,
         decoration: BoxDecoration(color:Colors.yellow),
         child: CircleListScrollView(
           physics: CircleFixedExtentScrollPhysics(),
@@ -195,7 +204,7 @@ class _AnimatedCircleState extends State<AnimatedCircle>
           itemExtent: 40,
 //            children: List.generate(10, _buildItem),
           children: buildListIcons(),
-          radius: MediaQuery.of(context).size.width * 0.20,
+          radius: MediaQuery.of(context).size.width * 0.25,
         ),
       ),
     );
