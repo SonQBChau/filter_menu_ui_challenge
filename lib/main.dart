@@ -79,8 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   buildCircleMenu() {
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.50,
-      right: MediaQuery.of(context).size.width * 0.25,
+      top: MediaQuery.of(context).size.height * 0.720,
+      right: MediaQuery.of(context).size.width * 0.1,
       child: AnimatedCircle(
         onClick: (){},
       ),
