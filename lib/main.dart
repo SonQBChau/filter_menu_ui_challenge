@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
           buildHeader(),
           buildProfileRow(),
           buildMainBody(),
-          buildFab(),
+//          buildFab(),
 
           buildCircleMenu(),
 

@@ -166,7 +166,7 @@ class _AnimatedCircleState extends State<AnimatedCircle>
     child: SlideTransition(
         position: _positionAnimation,
         child: Container(
-        decoration: BoxDecoration(color:Colors.yellow),
+//        decoration: BoxDecoration(color:Colors.yellow),
         child: CircleListScrollView(
           physics: CircleFixedExtentScrollPhysics(),
           axis: Axis.horizontal,
